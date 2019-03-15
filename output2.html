@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<h1><font face="verdana" color="green">AgriGEM</h1></font>
+<img src="https://s3.amazonaws.com/nightjarprod/wp-content/uploads/sites/16/2018/06/07115138/Gem-sidebar-icon.png" alt="Trulli" width="15%" height="15%">
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2><font face="verdana" color="Brown">Highest yielding variety by soil type='Deep Clay'  location='Norfolk'  proceeding crop='sugarbeet'</font></h2>
+<h3><font face="verdana" color="Blue">Click on column header to sort</font></h3>
+
+<table id="myTable">
+  <tr>
+  
+    <th onclick="sortTable(0)">Variety</th>
+    <th onclick="sortTable(1)">Year</th>
+    <th onclick="sortTable(2)">Yield (t/ha)</th>
+   
+  
+  </tr>
+  <tr>
+    <td>Skyfall</td>
+    <td>2016</td>
+   
+    <td>11.3</td>
+  </tr>
+  <tr>
+    <td>Zulu</td>
+    <td>2015</td>
+
+    <td>9.2</td>
+  </tr>
+  <tr>
+    <td>Hardwicke</td>
+    <td>2017</td>
+  
+    <td>10.9</td>
+  </tr>
+  <tr>
+    <td>Crusoe</td>
+    <td>2017</td>
+
+    <td>8.8</td>
+  </tr>
+  <tr>
+    <td>Spyder</td>
+    <td>2016</td>
+    
+    <td>9.6</td>
+  </tr>
+  <tr>
+    <td>Moulton</td>
+    <td>2018</td>
+
+    <td>9.2</td>
+  </tr>
+</table>
+
+
+<p>AgriGEM is a public platform for bringing together agronomic environmental and genomic data. The aim of this tool is to query and data sets from farmers for scientific purposes. This tool was designed in an EBI hackathon by group 5.</p>
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
+
